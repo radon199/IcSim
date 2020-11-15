@@ -13,5 +13,5 @@ class ConstantValue(ChipBase):
         }
 
         self.data = {
-            'A': value,
+            'A': int(value),
         }

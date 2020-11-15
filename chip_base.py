@@ -1,10 +1,30 @@
-from exceptions import NotConnected, NoNamedPin, InvalidInput
+from exceptions import NotConnected, NoNamedPin, InvalidInput, InputFloating
+
+from collections import defaultdict
+
+# Each output should put out either 0 or 1, but to support a bus type system where
+# a input may be connected to the output of many nodes we support a constant value
+# HIGH_Z which is equal to -1. If a not doesn't want to put out a values it can return
+# this in order to say that it shouldn't be considered. On a bus only one node should
+# output a value at any given time, and all others should be HIGH_Z. If this is not
+# the case a error will be raised as this is generally a fail condition
+HIGH_Z = -1
+
+class ChipConnection:
+    """ A struct like class for holding a node and output for connecting
+    """
+    def __init__(self, node, output):
+        self.node = node
+        self.output = output
+
+    def __str__(self):
+        return 'Connection : node={} output={}'.format(self.node, self.output)
+
 
 class ChipBase:
     """ Base class that all IC subclass derive from. Handles
     all of the connection logic.
     """
-
     def __init__(self, name):
         self.name = name
         self.type = None
@@ -13,7 +33,7 @@ class ChipBase:
 
         self.pins = {}
         self.data = {}
-        self.connections = {}
+        self.connections = defaultdict(list)
 
     def cook(self):
         """ Gather the values from all inputs and set them on
@@ -31,9 +51,9 @@ class ChipBase:
         """
         if isinstance(inputs, list):
             for i in inputs:
-                self.connections[i] = (node, output)
+                self.connections[i].append(ChipConnection(node, output))
         else:
-            self.connections[inputs] = (node, output)
+            self.connections[inputs].append(ChipConnection(node, output))
 
     def get_input(self, input):
         """ Get the value from an upstream node.
@@ -44,10 +64,14 @@ class ChipBase:
         Returns:
             bool: Value
         """
-        node, output = self.connections.get(input, (None, None))
-        if not node:
-            raise NotConnected('Node {} and input {} has no connection'.format(self.name, input))
-        return node.output_value(output)
+        data = self.connections.get(input)
+        if not data:
+            raise NotConnected('Input {} on Node {} has no connection'.format(input, self.name))
+        for con in data:
+            value = con.node.output_value(con.output)
+            if value != HIGH_Z:
+                return value
+        raise InputFloating('Input {} on Node {} has connections but none are returning a vlue'.format(input, self.name))
 
     def output_value(self, output):
         """ Return the output value of a pin.

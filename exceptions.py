@@ -12,3 +12,6 @@ class NoConnectedIsConnected(Exception):
 
 class NoNamedPin(Exception):
     pass
+
+class InputFloating(Exception):
+    pass

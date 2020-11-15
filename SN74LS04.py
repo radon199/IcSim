@@ -35,7 +35,7 @@ class SN74LS04(ChipBase):
         }
 
     def _invert_input(self, input_pin):
-        self.data['{}Y'.format(input_pin)] = (not self.get_input('{}A'.format(input_pin)))
+        self.data['{}Y'.format(input_pin)] = 1-self.get_input('{}A'.format(input_pin))
 
     def cook(self):
         self._invert_input(1)
