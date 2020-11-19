@@ -7,11 +7,17 @@ class InvalidOutput(Exception):
 class InvalidInput(Exception):
     pass
 
+class InputFloating(Exception):
+    pass
+
+class DoesNotSupportBusInput(Exception):
+    pass
+
 class NoConnectedIsConnected(Exception):
     pass
 
 class NoNamedPin(Exception):
     pass
 
-class InputFloating(Exception):
+class NodeNameAlreadyExists(Exception):
     pass

@@ -9,6 +9,8 @@ from SN74HC373 import SN74HC373
 from constant_value import ConstantValue
 from clock import Clock
 
+from exceptions import NodeNameAlreadyExists
+
 class CircuitFactory():
     """ A factory used to control the creation of a circuit and how it is
     run.
@@ -44,6 +46,9 @@ class CircuitFactory():
         Returns:
             ChipBase|None: The created IC or None if the ic_type is not createable.
         """
+        if name in self.nodes.keys():
+            raise NodeNameAlreadyExists(
+                'Node name {} already exists and is type {}. Can not create.'.format(name, self.nodes.get(name).type))
         function = self._ic_functions.get(ic_type, None)
         if not function:
             return None

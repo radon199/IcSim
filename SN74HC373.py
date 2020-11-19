@@ -84,4 +84,3 @@ class SN74HC373(ChipBase):
         self.data['Q5'] = self._latched_data['Q5']
         self.data['Q6'] = self._latched_data['Q6']
         self.data['Q7'] = self._latched_data['Q7']
-

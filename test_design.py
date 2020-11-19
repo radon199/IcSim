@@ -29,7 +29,6 @@ hb.connect_node(ha, 'TC', 'CET')
 hc.connect_node(hb, 'TC', 'CET')
 
 invert = circuit.create_ic('Invert', 'SN74LS04')
-invert.connect_node(circuit.GND, 'A', ['4A', '5A'])
 invert.connect_node(hb, 'Q1', '6A')
 
 # Count 262 detection
@@ -170,9 +169,10 @@ bghb.connect_node(circuit.VCC, 'A', ['MR', 'CEP'])
 bghb.connect_node(bgha, 'TC', 'CET')
 bghb.connect_node(hstart, 'Y', 'PE')
 
-bgh_offset = circuit.create_ic('BGVOffsetLatch', 'SN74HC373')
+bgh_offset = circuit.create_ic('BGHOffsetLatch', 'SN74HC373')
 bgh_offset.connect_node(circuit.VCC, 'A', 'LE')
-bgh_offset.connect_node(circuit.GND, 'A', ['OE', 'D0', 'D1', 'D2', 'D3', 'D4' 'D5', 'D6', 'D7'])
+bgh_offset.connect_node(circuit.GND, 'A', ['OE', 'D0', 'D1', 'D2', 'D3', 'D5', 'D6', 'D7'])
+bgh_offset.connect_node(circuit.VCC, 'A', 'D4')
 
 bgha.connect_node(bgh_offset, 'Q3', 'D3')
 bghb.connect_node(bgh_offset, 'Q4', 'D3')
@@ -197,7 +197,8 @@ bgvb.connect_node(v_sr_latch, '1Y', 'PE')
 
 bgv_offset = circuit.create_ic('BGVOffsetLatch', 'SN74HC373')
 bgv_offset.connect_node(circuit.VCC, 'A', 'LE')
-bgv_offset.connect_node(circuit.GND, 'A', ['OE', 'D0', 'D1', 'D2', 'D3', 'D4', 'D5', 'D6', 'D7'])
+bgv_offset.connect_node(circuit.GND, 'A', ['OE', 'D0', 'D1', 'D2', 'D3', 'D4', 'D5', 'D6'])
+bgv_offset.connect_node(circuit.VCC, 'A', 'D7')
 
 bgva.connect_node(bgv_offset, 'Q0', 'D0')
 bgva.connect_node(bgv_offset, 'Q1', 'D1')
@@ -218,22 +219,35 @@ bgv_reset.connect_node(circuit.VCC, 'A', ['E', 'F', 'G', 'H'])
 bgva.connect_node(bgv_reset, 'Y', 'MR')
 bgvb.connect_node(bgv_reset, 'Y', 'MR')
 
+bg_sr_latch = circuit.create_ic('BgSrLatch', 'SN74LS00')
+bg_sr_latch.connect_node(h_sr_latch, '3Y', '1A')
+bg_sr_latch.connect_node(bg_sr_latch, '2Y', '1B')
+bg_sr_latch.connect_node(bg_sr_latch, '1Y', '2A')
+bg_sr_latch.connect_node(bghb, 'TC', '2B')
+
+bg_sr_latch.connect_node(v_sr_latch, '3Y', '3B')
+bg_sr_latch.connect_node(bg_sr_latch, '4Y', '3A')
+bg_sr_latch.connect_node(bg_sr_latch, '3Y', '4B')
+bg_sr_latch.connect_node(bgv_reset, 'Y', '4A')
+
 framebuffer = numpy.zeros(shape=(525,318,3), dtype=numpy.uint8)
-end_count = 166950
-#end_count = 4096
+end_count = 333900
+#end_count = 320
 while circuit.CLK.count < end_count:
     circuit.increment_simulation()
     if circuit._subclock == 0:
         x = BitArray(bin="{}{}{}".format(hc, hb, ha)).uint
         y = BitArray(bin="{}{}{}".format(vc, vb, va)).uint
         if x < 318 and y < 525:
-            h_sync = h_sr_latch.output_value('3Y')*255
-            h_blank = h_sr_latch.output_value('1Y')*255
-            v_sync = v_sr_latch.output_value('3Y')*255
-            v_blank = v_sr_latch.output_value('1Y')*255
-            #valueh = BitArray(bin="{}{}".format(bghb, bgha)).uint
-            #valuev = BitArray(bin="{}{}".format(bgvb, bgva)).uint
-            framebuffer[y][x] = (h_sync, h_blank, 0.0)
+            #h_sync = h_sr_latch.output_value('3Y')*255
+            #h_blank = h_sr_latch.output_value('1Y')*255
+            #v_sync = v_sr_latch.output_value('3Y')*255
+            #v_blank = v_sr_latch.output_value('1Y')*255
+            valueh = BitArray(bin="{}{}".format(bghb, bgha)).uint
+            valuev = BitArray(bin="{}{}".format(bgvb, bgva)).uint
+            h_nametable = bg_sr_latch.output_value('2Y')*127
+            v_nametable = bg_sr_latch.output_value('4Y')*127
+            framebuffer[y][x] = (valueh, valuev, h_nametable)
     #h_sync = h_sr_latch.output_value('3Y')
     #if (not h_sync and subclock == 0):
     #    log.info("HSYNC")
