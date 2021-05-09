@@ -16,6 +16,20 @@ set
 unordered_map
 -
 
+../src/chips/SN74HC163N.h
+chip_base.h
+../src/chips/chip_base.h
+string
+-
+iostream
+-
+
+/home/colin/Documents/IcSim/src/chips/SN74HC163N.cpp
+chips/SN74HC163N.h
+/home/colin/Documents/IcSim/src/chips/chips/SN74HC163N.h
+bitset
+-
+
 /home/colin/Documents/IcSim/src/chips/SN74LS00.h
 chip_base.h
 /home/colin/Documents/IcSim/src/chips/chip_base.h

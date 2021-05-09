@@ -4,6 +4,14 @@
 CMakeFiles/IcSim.dir/src/chip_base.cpp.o: ../src/chip_base.cpp
 CMakeFiles/IcSim.dir/src/chip_base.cpp.o: ../src/chip_base.h
 
+CMakeFiles/IcSim.dir/src/chips/SN74HC163N.cpp.o: ../src/chip_base.h
+CMakeFiles/IcSim.dir/src/chips/SN74HC163N.cpp.o: ../src/chips/SN74HC163N.h
+CMakeFiles/IcSim.dir/src/chips/SN74HC163N.cpp.o: ../src/chips/SN74HC163N.cpp
+
+CMakeFiles/IcSim.dir/src/chips/SN74HC373.cpp.o: ../src/chip_base.h
+CMakeFiles/IcSim.dir/src/chips/SN74HC373.cpp.o: ../src/chips/SN74HC373.h
+CMakeFiles/IcSim.dir/src/chips/SN74HC373.cpp.o: ../src/chips/SN74HC373.cpp
+
 CMakeFiles/IcSim.dir/src/chips/SN74LS00.cpp.o: ../src/chip_base.h
 CMakeFiles/IcSim.dir/src/chips/SN74LS00.cpp.o: ../src/chips/SN74LS00.h
 CMakeFiles/IcSim.dir/src/chips/SN74LS00.cpp.o: ../src/chips/SN74LS00.cpp

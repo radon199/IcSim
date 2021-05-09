@@ -216,6 +216,60 @@ src/chip_base.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/IcSim.dir/build.make CMakeFiles/IcSim.dir/src/chip_base.cpp.s
 .PHONY : src/chip_base.cpp.s
 
+src/chips/SN74HC163N.o: src/chips/SN74HC163N.cpp.o
+
+.PHONY : src/chips/SN74HC163N.o
+
+# target to build an object file
+src/chips/SN74HC163N.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/IcSim.dir/build.make CMakeFiles/IcSim.dir/src/chips/SN74HC163N.cpp.o
+.PHONY : src/chips/SN74HC163N.cpp.o
+
+src/chips/SN74HC163N.i: src/chips/SN74HC163N.cpp.i
+
+.PHONY : src/chips/SN74HC163N.i
+
+# target to preprocess a source file
+src/chips/SN74HC163N.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/IcSim.dir/build.make CMakeFiles/IcSim.dir/src/chips/SN74HC163N.cpp.i
+.PHONY : src/chips/SN74HC163N.cpp.i
+
+src/chips/SN74HC163N.s: src/chips/SN74HC163N.cpp.s
+
+.PHONY : src/chips/SN74HC163N.s
+
+# target to generate assembly for a file
+src/chips/SN74HC163N.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/IcSim.dir/build.make CMakeFiles/IcSim.dir/src/chips/SN74HC163N.cpp.s
+.PHONY : src/chips/SN74HC163N.cpp.s
+
+src/chips/SN74HC373.o: src/chips/SN74HC373.cpp.o
+
+.PHONY : src/chips/SN74HC373.o
+
+# target to build an object file
+src/chips/SN74HC373.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/IcSim.dir/build.make CMakeFiles/IcSim.dir/src/chips/SN74HC373.cpp.o
+.PHONY : src/chips/SN74HC373.cpp.o
+
+src/chips/SN74HC373.i: src/chips/SN74HC373.cpp.i
+
+.PHONY : src/chips/SN74HC373.i
+
+# target to preprocess a source file
+src/chips/SN74HC373.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/IcSim.dir/build.make CMakeFiles/IcSim.dir/src/chips/SN74HC373.cpp.i
+.PHONY : src/chips/SN74HC373.cpp.i
+
+src/chips/SN74HC373.s: src/chips/SN74HC373.cpp.s
+
+.PHONY : src/chips/SN74HC373.s
+
+# target to generate assembly for a file
+src/chips/SN74HC373.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/IcSim.dir/build.make CMakeFiles/IcSim.dir/src/chips/SN74HC373.cpp.s
+.PHONY : src/chips/SN74HC373.cpp.s
+
 src/chips/SN74LS00.o: src/chips/SN74LS00.cpp.o
 
 .PHONY : src/chips/SN74LS00.o
@@ -448,6 +502,12 @@ help:
 	@echo "... src/chip_base.o"
 	@echo "... src/chip_base.i"
 	@echo "... src/chip_base.s"
+	@echo "... src/chips/SN74HC163N.o"
+	@echo "... src/chips/SN74HC163N.i"
+	@echo "... src/chips/SN74HC163N.s"
+	@echo "... src/chips/SN74HC373.o"
+	@echo "... src/chips/SN74HC373.i"
+	@echo "... src/chips/SN74HC373.s"
 	@echo "... src/chips/SN74LS00.o"
 	@echo "... src/chips/SN74LS00.i"
 	@echo "... src/chips/SN74LS00.s"

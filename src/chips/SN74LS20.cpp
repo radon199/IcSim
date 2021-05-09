@@ -1,7 +1,5 @@
 #include "chips/SN74LS20.h"
 
-#include <bitset>
-
 using namespace IcSim;
 
 SN74LS20::SN74LS20(std::string name) : ChipBase(name)

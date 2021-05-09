@@ -5,6 +5,8 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
   "/home/colin/Documents/IcSim/src/chip_base.cpp" "/home/colin/Documents/IcSim/build/CMakeFiles/IcSim.dir/src/chip_base.cpp.o"
+  "/home/colin/Documents/IcSim/src/chips/SN74HC163N.cpp" "/home/colin/Documents/IcSim/build/CMakeFiles/IcSim.dir/src/chips/SN74HC163N.cpp.o"
+  "/home/colin/Documents/IcSim/src/chips/SN74HC373.cpp" "/home/colin/Documents/IcSim/build/CMakeFiles/IcSim.dir/src/chips/SN74HC373.cpp.o"
   "/home/colin/Documents/IcSim/src/chips/SN74LS00.cpp" "/home/colin/Documents/IcSim/build/CMakeFiles/IcSim.dir/src/chips/SN74LS00.cpp.o"
   "/home/colin/Documents/IcSim/src/chips/SN74LS04.cpp" "/home/colin/Documents/IcSim/build/CMakeFiles/IcSim.dir/src/chips/SN74LS04.cpp.o"
   "/home/colin/Documents/IcSim/src/chips/SN74LS161A.cpp" "/home/colin/Documents/IcSim/build/CMakeFiles/IcSim.dir/src/chips/SN74LS161A.cpp.o"

@@ -7,3 +7,5 @@
 /home/colin/Documents/IcSim/install/include/IcSim/chips/SN74LS20.h
 /home/colin/Documents/IcSim/install/include/IcSim/chips/SN74LS30.h
 /home/colin/Documents/IcSim/install/include/IcSim/chips/SN74LS00.h
+/home/colin/Documents/IcSim/install/include/IcSim/chips/SN74HC373.h
+/home/colin/Documents/IcSim/install/include/IcSim/chips/SN74HC163N.h

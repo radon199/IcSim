@@ -130,7 +130,7 @@ const int
 ChipBase::output_value(const std::string& output) const
 {
     PinMap::const_iterator iter = data_.find(output);
-    if (iter != data_.end()) {
+    if (iter != data_.cend()) {
         return iter->second;
     }
     throw std::logic_error("Output "+output+" on Node "+name_+" does not contain a value.");
@@ -139,7 +139,7 @@ ChipBase::output_value(const std::string& output) const
 void
 ChipBase::set_data(std::string pin, const int& value, bool& prop)
 {
-    PinMap::const_iterator iter = data_.find(pin);
+    PinMap::iterator iter = data_.find(pin);
     if (iter == data_.end()) {
         data_[pin] = value;
     } else {

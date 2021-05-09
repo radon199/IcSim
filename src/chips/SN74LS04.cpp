@@ -1,7 +1,5 @@
 #include "chips/SN74LS04.h"
 
-#include <bitset>
-
 using namespace IcSim;
 
 SN74LS04::SN74LS04(std::string name) : ChipBase(name)

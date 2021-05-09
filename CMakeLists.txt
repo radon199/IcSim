@@ -18,6 +18,8 @@ add_executable(IcSim
     src/chips/SN74LS20.cpp
     src/chips/SN74LS30.cpp
     src/chips/SN74LS161A.cpp
+    src/chips/SN74HC163N.cpp
+    src/chips/SN74HC373.cpp
 )
 
 target_include_directories(IcSim PUBLIC src)

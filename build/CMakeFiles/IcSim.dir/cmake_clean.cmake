@@ -1,5 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/IcSim.dir/src/chip_base.cpp.o"
+  "CMakeFiles/IcSim.dir/src/chips/SN74HC163N.cpp.o"
+  "CMakeFiles/IcSim.dir/src/chips/SN74HC373.cpp.o"
   "CMakeFiles/IcSim.dir/src/chips/SN74LS00.cpp.o"
   "CMakeFiles/IcSim.dir/src/chips/SN74LS04.cpp.o"
   "CMakeFiles/IcSim.dir/src/chips/SN74LS161A.cpp.o"
