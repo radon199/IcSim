@@ -24,7 +24,7 @@ protected:
 
 inline std::ostream& operator<<(std::ostream& output_stream, const ConstantValue& constant_value)
 {
-    output_stream << "ConstantValue " << constant_value.name_ << " Value=" << constant_value.output_value("A");
+    output_stream << "ConstantValue " << constant_value.name_ << " Value=" << constant_value.output_value(1);
     return output_stream;
 }
 

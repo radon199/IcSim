@@ -303,7 +303,7 @@ int main(int argc, char **argv)
             
             double alpha = count.to_ullong()/525.0;
             int value = int(255*alpha);
-            std::cout << 0 << " " << v_nametable << " " << 0 << "\n";
+            std::cout << h_sync << " " << h_blank << " " << 0 << "\n";
         }
 
         // Log the progress

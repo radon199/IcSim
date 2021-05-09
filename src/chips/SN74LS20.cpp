@@ -31,23 +31,23 @@ SN74LS20::SN74LS20(std::string name) : ChipBase(name)
 void
 SN74LS20::cook(bool& prop)
 {
-    const int a1 = get_input("A1");
-    const int b1 = get_input("B1");
-    const int c1 = get_input("C1");
-    const int d1 = get_input("D1");
+    const int a1 = get_input(1);
+    const int b1 = get_input(2);
+    const int c1 = get_input(4);
+    const int d1 = get_input(5);
     if (a1 && b1 && c1 && d1) {
-        set_data("Y1", 0, prop);
+        set_data(6, 0, prop);
     } else {
-        set_data("Y1", 1, prop);
+        set_data(6, 1, prop);
     }
 
-    const int a2 = get_input("A2");
-    const int b2 = get_input("B2");
-    const int c2 = get_input("C2");
-    const int d2 = get_input("D2");
+    const int a2 = get_input(9);
+    const int b2 = get_input(10);
+    const int c2 = get_input(12);
+    const int d2 = get_input(13);
     if (a2 && b2 && c2 && d2) {
-        set_data("Y2", 0, prop);
+        set_data(8, 0, prop);
     } else {
-        set_data("Y2", 1, prop);
+        set_data(8, 1, prop);
     }
 }

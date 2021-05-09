@@ -33,35 +33,35 @@ SN74LS00::SN74LS00(std::string name) : ChipBase(name)
 void
 SN74LS00::cook(bool& prop)
 {
-    const int a1 = get_input("1A");
-    const int b1 = get_input("1B");
+    const int a1 = get_input(1);
+    const int b1 = get_input(2);
     if (a1 && b1) {
-        set_data("1Y", 0, prop);
+        set_data(3, 0, prop);
     } else {
-        set_data("1Y", 1, prop);
+        set_data(3, 1, prop);
     }
 
-    const int a2 = get_input("2A");
-    const int b2 = get_input("2B");
+    const int a2 = get_input(4);
+    const int b2 = get_input(5);
     if (a2 && b2) {
-        set_data("2Y", 0, prop);
+        set_data(6, 0, prop);
     } else {
-        set_data("2Y", 1, prop);
+        set_data(6, 1, prop);
     }
 
-    const int a3 = get_input("3A");
-    const int b3 = get_input("3B");
+    const int a3 = get_input(10);
+    const int b3 = get_input(9);
     if (a3 && b3) {
-        set_data("3Y", 0, prop);
+        set_data(8, 0, prop);
     } else {
-        set_data("3Y", 1, prop);
+        set_data(8, 1, prop);
     }
 
-    const int a4 = get_input("4A");
-    const int b4 = get_input("4B");
+    const int a4 = get_input(13);
+    const int b4 = get_input(12);
     if (a4 && b4) {
-        set_data("4Y", 0, prop);
+        set_data(11, 0, prop);
     } else {
-        set_data("4Y", 1, prop);
+        set_data(11, 1, prop);
     }
 }

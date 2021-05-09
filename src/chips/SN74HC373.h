@@ -24,9 +24,7 @@ protected:
     std::string type_{"SN74HC373"};
     std::string description_{"8 bit transparent D latch"};
 
-    const int output_latched_value(const std::string& output) const;
-
-    PinDataMap latched_data_;
+    PinDataVector latched_data_;
 };
 
 inline std::ostream& operator<<(std::ostream& output_stream, const SN74HC373& chip)

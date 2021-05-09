@@ -30,17 +30,17 @@ SN74LS30::SN74LS30(std::string name) : ChipBase(name)
 void
 SN74LS30::cook(bool& prop)
 {
-    const int a = get_input("A");
-    const int b = get_input("B");
-    const int c = get_input("C");
-    const int d = get_input("D");
-    const int e = get_input("E");
-    const int f = get_input("F");
-    const int g = get_input("G");
-    const int h = get_input("H");
+    const int a = get_input(1);
+    const int b = get_input(2);
+    const int c = get_input(3);
+    const int d = get_input(4);
+    const int e = get_input(5);
+    const int f = get_input(6);
+    const int g = get_input(11);
+    const int h = get_input(12);
     if (a && b && c && d && e && f && g && h) {
-        set_data("Y", 0, prop);
+        set_data(8, 0, prop);
     } else {
-        set_data("Y", 1, prop);
+        set_data(8, 1, prop);
     }
 }

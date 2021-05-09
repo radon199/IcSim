@@ -9,7 +9,7 @@ ConstantValue::ConstantValue(std::string name, int value) : ChipBase(name)
     };
     set_pins(pins_);
 
-    set_data("A", value);
+    set_data(1, value);
 }
 
 void

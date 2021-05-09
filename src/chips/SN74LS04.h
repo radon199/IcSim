@@ -24,7 +24,7 @@ protected:
     std::string type_{"SN74LS04"};
     std::string description_{"Quad 1 input hex inverters"};
 
-    void _invert_input(const std::string& input, bool& prop);
+    void _invert_input(const int& output, const int& input, bool& prop);
 };
 
 inline std::ostream& operator<<(std::ostream& output_stream, const SN74LS04& chip)

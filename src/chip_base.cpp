@@ -17,6 +17,8 @@ void
 ChipBase::set_pins(const PinNameMap& pins)
 {
     pins_ = pins;
+    // Make the data vector as long as the pin map
+    data_.resize(pins_.size());
 }
 
 /// Change the internal state of this node, updating it's outputs from it's inputs
@@ -181,11 +183,11 @@ ChipBase::output_value(const std::string& output) const
 const int
 ChipBase::output_value(const int& output) const
 {
-    PinDataMap::const_iterator iter = data_.find(output);
-    if (iter != data_.cend()) {
-        return iter->second;
+    int index = output-1;
+    if (index >= data_.size() || index < 0) {
+        throw std::logic_error("Output "+std::to_string(output)+" on Node "+name_+" is outside data vector length.");
     }
-    throw std::logic_error("Output "+std::to_string(output)+" on Node "+name_+" does not contain a value.");
+    return data_[index];
 }
 
 
@@ -220,15 +222,14 @@ ChipBase::set_data(int pin, const int& value)
 void
 ChipBase::set_data(int pin, const int& value, bool& prop)
 {
-    PinDataMap::iterator iter = data_.find(pin);
-    if (iter == data_.end()) {
-        data_[pin] = value;
-    } else {
-        int previous_value = iter->second;
-        if (previous_value != value) {
-            data_[pin] = value;
-            // If the new value doesn't match the previous we should propagate
-            prop = true;
-        }
+    int index = pin-1;
+    if (index >= data_.size() || index < 0) {
+        throw std::logic_error("Output "+std::to_string(pin)+" on Node "+name_+" is outside data vector length.");
+    }
+    int previous_value = data_[index];
+    if (previous_value != value) {
+        data_[index] = value;
+        // If the new value doesn't match the previous we should propagate
+        prop = true;
     }
 }

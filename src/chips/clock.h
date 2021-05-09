@@ -35,7 +35,7 @@ protected:
 
 inline std::ostream& operator<<(std::ostream& output_stream, const Clock& clock)
 {
-    std::string edge = clock.output_value("A") ? "Rising" : "Falling";
+    std::string edge = clock.output_value(1) ? "Rising" : "Falling";
     output_stream << "Clock Edge=" << edge << " Count=" << clock.count;
     return output_stream;
 }

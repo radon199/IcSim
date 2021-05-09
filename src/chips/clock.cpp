@@ -12,11 +12,11 @@ void
 Clock::cook(bool& prop)
 {
     // Increment clock
-    int value = !output_value("A");
+    int value = !output_value(1);
     if (value) {
         count += 1;
     }
-    set_data("A", value, prop);
+    set_data(1, value, prop);
 
     // Clock logging
     log_count_ += 1;

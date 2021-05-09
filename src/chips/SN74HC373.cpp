@@ -28,6 +28,8 @@ SN74HC373::SN74HC373(std::string name) : ChipBase(name)
         {"VCC", 20},
     };
     set_pins(pins_);
+    // resize the internal latched data to the same length as the pin map +1 since pins are indexed from 1
+    latched_data_.resize(pins_.size()+1);
 
     // Init data
     set_data("Q0", 0);
@@ -40,49 +42,38 @@ SN74HC373::SN74HC373(std::string name) : ChipBase(name)
     set_data("Q7", 0);
 }
 
-const int
-SN74HC373::output_latched_value(const std::string& output) const
-{
-    int pin_number = get_pin_number(output);
-    PinDataMap::const_iterator iter = latched_data_.find(pin_number);
-    if (iter != latched_data_.cend()) {
-        return iter->second;
-    }
-    throw std::logic_error("Latched output "+output+" on Node "+name_+" does not contain a value.");
-}
-
 void
 SN74HC373::cook(bool& prop)
 {
-    if (get_input("OE")) {
-        set_data("Q0", HIGH_Z, prop);
-        set_data("Q1", HIGH_Z, prop);
-        set_data("Q2", HIGH_Z, prop);
-        set_data("Q3", HIGH_Z, prop);
-        set_data("Q4", HIGH_Z, prop);
-        set_data("Q5", HIGH_Z, prop);
-        set_data("Q6", HIGH_Z, prop);
-        set_data("Q7", HIGH_Z, prop);
+    if (get_input(1)) {
+        set_data(2,  HIGH_Z, prop);
+        set_data(5,  HIGH_Z, prop);
+        set_data(6,  HIGH_Z, prop);
+        set_data(9,  HIGH_Z, prop);
+        set_data(12, HIGH_Z, prop);
+        set_data(15, HIGH_Z, prop);
+        set_data(16, HIGH_Z, prop);
+        set_data(19, HIGH_Z, prop);
         return;
     }
 
-    if (get_input("LE")) {
-        latched_data_[get_pin_number("Q0")] = get_input("D0");
-        latched_data_[get_pin_number("Q1")] = get_input("D1");
-        latched_data_[get_pin_number("Q2")] = get_input("D2");
-        latched_data_[get_pin_number("Q3")] = get_input("D3");
-        latched_data_[get_pin_number("Q4")] = get_input("D4");
-        latched_data_[get_pin_number("Q5")] = get_input("D5");
-        latched_data_[get_pin_number("Q6")] = get_input("D6");
-        latched_data_[get_pin_number("Q7")] = get_input("D7");
+    if (get_input(11)) {
+        latched_data_[2]  = get_input(3);
+        latched_data_[5]  = get_input(4);
+        latched_data_[6]  = get_input(7);
+        latched_data_[9]  = get_input(8);
+        latched_data_[12] = get_input(13);
+        latched_data_[15] = get_input(14);
+        latched_data_[16] = get_input(17);
+        latched_data_[19] = get_input(18);
     }
     
-    set_data("Q0", output_latched_value("Q0"), prop);
-    set_data("Q1", output_latched_value("Q1"), prop);
-    set_data("Q2", output_latched_value("Q2"), prop);
-    set_data("Q3", output_latched_value("Q3"), prop);
-    set_data("Q4", output_latched_value("Q4"), prop);
-    set_data("Q5", output_latched_value("Q5"), prop);
-    set_data("Q6", output_latched_value("Q6"), prop);
-    set_data("Q7", output_latched_value("Q7"), prop);
+    set_data(2,  latched_data_[2],  prop);
+    set_data(5,  latched_data_[5],  prop);
+    set_data(6,  latched_data_[6],  prop);
+    set_data(9,  latched_data_[9],  prop);
+    set_data(12, latched_data_[12], prop);
+    set_data(15, latched_data_[15], prop);
+    set_data(16, latched_data_[16], prop);
+    set_data(19, latched_data_[19], prop);
 }

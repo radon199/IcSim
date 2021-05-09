@@ -33,18 +33,18 @@ SN74LS04::SN74LS04(std::string name) : ChipBase(name)
 }
 
 void
-SN74LS04::_invert_input(const std::string& input, bool& prop)
+SN74LS04::_invert_input(const int& output, const int& input, bool& prop)
 {
-    set_data(input+"Y", 1-get_input(input+"A"), prop);
+    set_data(output, 1-get_input(input), prop);
 }
 
 void
 SN74LS04::cook(bool& prop)
 {
-    _invert_input("1", prop);
-    _invert_input("2", prop);
-    _invert_input("3", prop);
-    _invert_input("4", prop);
-    _invert_input("5", prop);
-    _invert_input("6", prop);
+    _invert_input(2,  1,  prop);
+    _invert_input(4,  3,  prop);
+    _invert_input(6,  5,  prop);
+    _invert_input(8,  9,  prop);
+    _invert_input(10, 11, prop);
+    _invert_input(12, 13, prop);
 }

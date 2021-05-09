@@ -12,7 +12,7 @@ namespace IcSim
 {
 
 typedef std::unordered_map<std::string, int> PinNameMap;
-typedef std::unordered_map<int, int> PinDataMap;
+typedef std::vector<int> PinDataVector;
 typedef std::vector<int> InputVector;
 typedef std::vector<std::string> InputStringVector;
 
@@ -77,7 +77,7 @@ protected:
     std::string description_{"The base for all chips. Should never be used directly."};
 
     PinNameMap pins_;
-    PinDataMap data_;
+    PinDataVector data_;
 
     ConnectionMap input_connections_;
     ChipSet output_nodes_;
