@@ -5,7 +5,7 @@ using namespace IcSim;
 SN74HC373::SN74HC373(std::string name) : ChipBase(name)
 {
     // Init pins
-    PinMap pins_ = {
+    PinNameMap pins_ = {
         {"OE",  1},
         {"Q0",  2},
         {"D0",  3},
@@ -43,7 +43,8 @@ SN74HC373::SN74HC373(std::string name) : ChipBase(name)
 const int
 SN74HC373::output_latched_value(const std::string& output) const
 {
-    PinMap::const_iterator iter = latched_data_.find(output);
+    int pin_number = get_pin_number(output);
+    PinDataMap::const_iterator iter = latched_data_.find(pin_number);
     if (iter != latched_data_.cend()) {
         return iter->second;
     }
@@ -66,14 +67,14 @@ SN74HC373::cook(bool& prop)
     }
 
     if (get_input("LE")) {
-        latched_data_["Q0"] = get_input("D0");
-        latched_data_["Q1"] = get_input("D1");
-        latched_data_["Q2"] = get_input("D2");
-        latched_data_["Q3"] = get_input("D3");
-        latched_data_["Q4"] = get_input("D4");
-        latched_data_["Q5"] = get_input("D5");
-        latched_data_["Q6"] = get_input("D6");
-        latched_data_["Q7"] = get_input("D7");
+        latched_data_[get_pin_number("Q0")] = get_input("D0");
+        latched_data_[get_pin_number("Q1")] = get_input("D1");
+        latched_data_[get_pin_number("Q2")] = get_input("D2");
+        latched_data_[get_pin_number("Q3")] = get_input("D3");
+        latched_data_[get_pin_number("Q4")] = get_input("D4");
+        latched_data_[get_pin_number("Q5")] = get_input("D5");
+        latched_data_[get_pin_number("Q6")] = get_input("D6");
+        latched_data_[get_pin_number("Q7")] = get_input("D7");
     }
     
     set_data("Q0", output_latched_value("Q0"), prop);

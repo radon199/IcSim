@@ -4,6 +4,11 @@ using namespace IcSim;
 
 ConstantValue::ConstantValue(std::string name, int value) : ChipBase(name)
 {
+    PinNameMap pins_ = {
+        {"A",  1}
+    };
+    set_pins(pins_);
+
     set_data("A", value);
 }
 

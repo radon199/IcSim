@@ -30,9 +30,9 @@ int main(int argc, char **argv)
     SN74LS161A hc("HC");
     ha.connect_input(&VCC, "A", {"PE", "CET", "CEP"});
     ha.connect_input(&GND, "A", {"P0", "P1", "P2", "P3"});
-    hb.connect_input(&VCC, "A", InputVector{"PE", "CEP"});
+    hb.connect_input(&VCC, "A", InputStringVector{"PE", "CEP"});
     hb.connect_input(&GND, "A", {"P0", "P1", "P2", "P3"});
-    hc.connect_input(&VCC, "A", InputVector{"PE", "CEP"});
+    hc.connect_input(&VCC, "A", InputStringVector{"PE", "CEP"});
     hc.connect_input(&GND, "A", {"P0", "P1", "P2", "P3"});
 
     // Connect counter to clock and chain the count overflow
@@ -66,7 +66,7 @@ int main(int argc, char **argv)
     h318.connect_input(&ha, "Q3", "D");
     h318.connect_input(&hb, "Q0", "E");
     h318.connect_input(&hb, "Q1", "F");
-    h318.connect_input(&VCC, "A", InputVector{"G", "H"});
+    h318.connect_input(&VCC, "A", InputStringVector{"G", "H"});
 
     // Connect count 318 to horizontal count reset
     ha.connect_input(&h318, "Y", "MR");
@@ -102,9 +102,9 @@ int main(int argc, char **argv)
     SN74LS161A vc("VC");
     va.connect_input(&VCC, "A", {"PE", "CET", "CEP"});
     va.connect_input(&GND, "A", {"P0", "P1", "P2", "P3"});
-    vb.connect_input(&VCC, "A", InputVector{"PE", "CEP"});
+    vb.connect_input(&VCC, "A", InputStringVector{"PE", "CEP"});
     vb.connect_input(&GND, "A", {"P0", "P1", "P2", "P3"});
-    vc.connect_input(&VCC, "A", InputVector{"PE", "CEP"});
+    vc.connect_input(&VCC, "A", InputStringVector{"PE", "CEP"});
     vc.connect_input(&GND, "A", {"P0", "P1", "P2", "P3"});
 
     // Connect counter to vertical counters
@@ -150,7 +150,7 @@ int main(int argc, char **argv)
     v492.connect_input(&vb, "Q2", "D");
     v492.connect_input(&vb, "Q3", "E");
     v492.connect_input(&vc, "Q0", "F");
-    v492.connect_input(&VCC, "A", InputVector{"G", "H"});
+    v492.connect_input(&VCC, "A", InputStringVector{"G", "H"});
 
     va.connect_input(&v480_v525, "Y2", "MR");
     vb.connect_input(&v480_v525, "Y2", "MR");
@@ -176,7 +176,7 @@ int main(int argc, char **argv)
     bgha.connect_input(&hstart, "Y", "PE");
     bgha.connect_input(&GND, "A", {"D0", "D1", "D2"});
     bghb.connect_input(&CLK, "A", "CP");
-    bghb.connect_input(&VCC, "A", InputVector{"MR", "CEP"});
+    bghb.connect_input(&VCC, "A", InputStringVector{"MR", "CEP"});
     bghb.connect_input(&bgha, "TC", "CET");
     bghb.connect_input(&hstart, "Y", "PE");
 
@@ -195,7 +195,7 @@ int main(int argc, char **argv)
     SN74HC163N bgva("BGVCountA");
     SN74HC163N bgvb("BGVCountB");
     bgva.connect_input(&va, "Q0", "CP");
-    bgva.connect_input(&VCC, "A", InputVector{"CEP", "CET"});
+    bgva.connect_input(&VCC, "A", InputStringVector{"CEP", "CET"});
     bgva.connect_input(&v_sr_latch, "1Y", "PE");
     bgva.connect_input(&GND, "A", {"D0", "D1", "D2"});
     bgvb.connect_input(&va, "Q0", "CP");

@@ -7,7 +7,7 @@ using namespace IcSim;
 SN74LS161A::SN74LS161A(std::string name) : ChipBase(name)
 {
     // Init pins
-    PinMap pins_ = {
+    PinNameMap pins_ = {
         {"MR",  1},
         {"CP",  2},
         {"P0",  3},

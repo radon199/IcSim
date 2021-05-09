@@ -26,7 +26,7 @@ protected:
 
     const int output_latched_value(const std::string& output) const;
 
-    PinMap latched_data_;
+    PinDataMap latched_data_;
 };
 
 inline std::ostream& operator<<(std::ostream& output_stream, const SN74HC373& chip)

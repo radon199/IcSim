@@ -11,8 +11,10 @@
 namespace IcSim
 {
 
-typedef std::unordered_map<std::string, int> PinMap;
-typedef std::vector<std::string> InputVector;
+typedef std::unordered_map<std::string, int> PinNameMap;
+typedef std::unordered_map<int, int> PinDataMap;
+typedef std::vector<int> InputVector;
+typedef std::vector<std::string> InputStringVector;
 
 class ChipBase;
 
@@ -20,10 +22,10 @@ class ChipBase;
 struct ChipConnection
 {
     ChipBase* node;
-    std::string pin;
+    int pin;
 };
 
-typedef std::unordered_map<std::string, std::vector<ChipConnection>> ConnectionMap;
+typedef std::unordered_map<int, std::vector<ChipConnection>> ConnectionMap;
 typedef std::set<ChipBase*> ChipSet;
 
 /// Base class that all IC subclass derive from. Handles all of the connection logic.
@@ -43,31 +45,39 @@ public:
     virtual void cook(bool& prop);
     void propagate();
 
-    void check_connection(const std::string& input);
-
     void connect_input(ChipBase* node, const std::string& output, const std::string& input);
-    void connect_input(ChipBase* node, const std::string& output, const InputVector& inputs);
+    void connect_input(ChipBase* node, const std::string& output, const InputStringVector& inputs);
+    void connect_input(ChipBase* node, const int& output, const int& input);
+    void connect_input(ChipBase* node, const int& output, const InputVector& inputs);
 
     void connect_output(ChipBase* node);
 
     const int get_input(const std::string& input);
+    const int get_input(const int& input);
 
     const int output_value(const std::string& output) const;
+    const int output_value(const int& output) const;
 
     void LogInputConnections() const;
     void LogOutputConnections() const;
 
 protected:
-    void set_pins(const PinMap& pins);
-    void set_data(std::string pin, const int& value, bool& prop);
+    void check_connection(const int& input);
+
+    void set_pins(const PinNameMap& pins);
+    int get_pin_number(const std::string& pin_name) const;
+
     void set_data(std::string pin, const int& value);
+    void set_data(std::string pin, const int& value, bool& prop);
+    void set_data(int pin, const int& value);
+    void set_data(int pin, const int& value, bool& prop);
 
     std::string name_;
     std::string type_{"ChipBase"};
     std::string description_{"The base for all chips. Should never be used directly."};
 
-    PinMap pins_;
-    PinMap data_;
+    PinNameMap pins_;
+    PinDataMap data_;
 
     ConnectionMap input_connections_;
     ChipSet output_nodes_;

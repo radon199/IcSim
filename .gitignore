@@ -1,6 +1,8 @@
 __pycache__/
-build/
-install/
-backup/
+/build/
+/install/
+/backup/
 *.code-workspace
 *.png
+*.ppm
+*.[oa]
