@@ -28,7 +28,7 @@ protected:
     std::string description_{"Outputs a flip flopping clock"};
 
     int log_count_{0};
-    int log_frequency_{10000};
+    int log_frequency_{20000};
 
     bool should_log_{false};
 };

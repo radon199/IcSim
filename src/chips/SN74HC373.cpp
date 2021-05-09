@@ -47,7 +47,7 @@ SN74HC373::output_latched_value(const std::string& output) const
     if (iter != latched_data_.cend()) {
         return iter->second;
     }
-    throw std::logic_error("Output "+output+" on Node "+name_+" does not contain a value.");
+    throw std::logic_error("Latched output "+output+" on Node "+name_+" does not contain a value.");
 }
 
 void

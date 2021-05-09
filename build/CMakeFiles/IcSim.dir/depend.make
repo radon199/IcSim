@@ -42,6 +42,8 @@ CMakeFiles/IcSim.dir/src/chips/constant_value.cpp.o: ../src/chips/constant_value
 CMakeFiles/IcSim.dir/src/chips/constant_value.cpp.o: ../src/chips/constant_value.cpp
 
 CMakeFiles/IcSim.dir/src/main.cpp.o: ../src/chip_base.h
+CMakeFiles/IcSim.dir/src/main.cpp.o: ../src/chips/SN74HC163N.h
+CMakeFiles/IcSim.dir/src/main.cpp.o: ../src/chips/SN74HC373.h
 CMakeFiles/IcSim.dir/src/main.cpp.o: ../src/chips/SN74LS00.h
 CMakeFiles/IcSim.dir/src/main.cpp.o: ../src/chips/SN74LS04.h
 CMakeFiles/IcSim.dir/src/main.cpp.o: ../src/chips/SN74LS161A.h
