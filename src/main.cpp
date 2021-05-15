@@ -2,6 +2,7 @@
 #include "chips/clock.h"
 #include "chips/SN74LS00.h"
 #include "chips/SN74LS04.h"
+#include "chips/SN74LS08.h"
 #include "chips/SN74LS20.h"
 #include "chips/SN74LS30.h"
 #include "chips/SN74LS161A.h"
@@ -168,9 +169,15 @@ int main(int argc, char **argv)
     v_sr_latch.connect_input(&v_sr_latch, "1Y", "2A");
     v_sr_latch.connect_input(&v480_v525, "Y1", "2B");
 
+    // PPU Control
+    SN74HC373 ppu_control("PPUControl");
+    ppu_control.connect_input(&VCC, "A", "LE");
+    ppu_control.connect_input(&GND, "A", {"OE", "D2", "D3", "D4", "D5", "D6", "D7"});
+    ppu_control.connect_input(&GND, "A", InputStringVector{"D0", "D1"});
+
     // BG Count H
-    SN74HC163N bgha("BGHCountA");
-    SN74HC163N bghb("BGHCountB");
+    SN74HC163N bgha("BGHCount1");
+    SN74HC163N bghb("BGHCount2");
     bgha.connect_input(&CLK, "A", "CP");
     bgha.connect_input(&VCC, "A", {"MR", "CEP", "CET"});
     bgha.connect_input(&hstart, "Y", "PE");
@@ -192,8 +199,8 @@ int main(int argc, char **argv)
     bghb.connect_input(&bgh_offset, "Q7", "D3");
 
     // BG Count V
-    SN74HC163N bgva("BGVCountA");
-    SN74HC163N bgvb("BGVCountB");
+    SN74HC163N bgva("BGVCount1");
+    SN74HC163N bgvb("BGVCount2");
     bgva.connect_input(&va, "Q0", "CP");
     bgva.connect_input(&VCC, "A", InputStringVector{"CEP", "CET"});
     bgva.connect_input(&v_sr_latch, "1Y", "PE");
@@ -242,6 +249,13 @@ int main(int argc, char **argv)
     bg_sr_latch.connect_input(&bg_sr_latch, "3Y", "4B");
     bg_sr_latch.connect_input(&bgv_reset, "Y", "4A");
 
+    SN74LS08 bg_and("BgAND");
+    bg_and.connect_input(&GND, "A", {"A3", "B3", "A4", "B4"});
+    bg_and.connect_input(&bg_sr_latch, "2Y", "A1");
+    bg_and.connect_input(&ppu_control, "Q0", "B1");
+    bg_and.connect_input(&bg_sr_latch, "4Y", "A2");
+    bg_and.connect_input(&ppu_control, "Q1", "B2");
+
     // Make sure all nodes that connect to VCC and Ground but not CLK
     // are cooked at least once first to set up any internal state
     VCC.propagate();
@@ -267,9 +281,10 @@ int main(int argc, char **argv)
             int h_blank = h_sr_latch.output_value("1Y")*255;
             int v_sync = v_sr_latch.output_value("3Y")*255;
             int v_blank = v_sr_latch.output_value("1Y")*255;
-            int h_nametable = bg_sr_latch.output_value("2Y")*255;
-            int v_nametable = bg_sr_latch.output_value("4Y")*255;
-            std::bitset<12> count;
+            int h_nametable = bg_and.output_value("Y1")*255;
+            int v_nametable = bg_and.output_value("Y2")*255;
+            std::bitset<8> h_count;
+            std::bitset<8> v_count;
             // count[0]  = va.output_value("Q0");
             // count[1]  = va.output_value("Q1");
             // count[2]  = va.output_value("Q2");
@@ -283,27 +298,28 @@ int main(int argc, char **argv)
             // count[10] = vc.output_value("Q2");
             // count[11] = vc.output_value("Q3");
 
-            // count[0]  = bgha.output_value("Q0");
-            // count[1]  = bgha.output_value("Q1");
-            // count[2]  = bgha.output_value("Q2");
-            // count[3]  = bgha.output_value("Q3");
-            // count[4]  = bghb.output_value("Q0");
-            // count[5]  = bghb.output_value("Q1");
-            // count[6]  = bghb.output_value("Q2");
-            // count[7]  = bghb.output_value("Q3");
+            h_count[0]  = bgha.output_value("Q0");
+            h_count[1]  = bgha.output_value("Q1");
+            h_count[2]  = bgha.output_value("Q2");
+            h_count[3]  = bgha.output_value("Q3");
+            h_count[4]  = bghb.output_value("Q0");
+            h_count[5]  = bghb.output_value("Q1");
+            h_count[6]  = bghb.output_value("Q2");
+            h_count[7]  = bghb.output_value("Q3");
+            double h_alpha = h_count.to_ullong()/318.0;
+            int h_value = int(255*h_alpha);
 
-            count[0]  = bgva.output_value("Q0");
-            count[1]  = bgva.output_value("Q1");
-            count[2]  = bgva.output_value("Q2");
-            count[3]  = bgva.output_value("Q3");
-            count[4]  = bgvb.output_value("Q0");
-            count[5]  = bgvb.output_value("Q1");
-            count[6]  = bgvb.output_value("Q2");
-            count[7]  = bgvb.output_value("Q3");
-            
-            double alpha = count.to_ullong()/525.0;
-            int value = int(255*alpha);
-            std::cout << v_sync << " " << v_blank << " " << 0 << "\n";
+            v_count[0]  = bgva.output_value("Q0");
+            v_count[1]  = bgva.output_value("Q1");
+            v_count[2]  = bgva.output_value("Q2");
+            v_count[3]  = bgva.output_value("Q3");
+            v_count[4]  = bgvb.output_value("Q0");
+            v_count[5]  = bgvb.output_value("Q1");
+            v_count[6]  = bgvb.output_value("Q2");
+            v_count[7]  = bgvb.output_value("Q3");
+            double v_alpha = v_count.to_ullong()/525.0;
+            int v_value = int(255*v_alpha);
+            std::cout << v_value << " " << v_nametable << " " << 0 << "\n";
         }
 
         // Log the progress

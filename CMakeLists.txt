@@ -15,6 +15,7 @@ add_executable(IcSim
     src/chips/constant_value.cpp
     src/chips/SN74LS00.cpp
     src/chips/SN74LS04.cpp
+    src/chips/SN74LS08.cpp
     src/chips/SN74LS20.cpp
     src/chips/SN74LS30.cpp
     src/chips/SN74LS161A.cpp

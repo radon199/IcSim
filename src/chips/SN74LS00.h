@@ -1,5 +1,5 @@
-#ifndef SN74LS20_H
-#define SN74LS20_H
+#ifndef SN74LS00_H
+#define SN74LS00_H
 
 #include "chip_base.h"
 
@@ -36,4 +36,4 @@ inline std::ostream& operator<<(std::ostream& output_stream, const SN74LS00& chi
 
 }
 
-#endif // SN74LS20_H
+#endif // SN74LS00_H
