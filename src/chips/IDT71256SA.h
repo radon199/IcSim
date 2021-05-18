@@ -19,6 +19,8 @@ public:
     bool has_clock_input() const override { return true; };
     bool allow_bus_inputs() const override { return false; };
 
+    void write_data(unsigned int address, unsigned int data);
+
     void cook(bool& prop) override;
 protected:
     std::string type_{"IDT71256SA"};

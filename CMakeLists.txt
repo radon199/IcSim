@@ -18,8 +18,10 @@ add_executable(IcSim
     src/chips/SN74LS08.cpp
     src/chips/SN74LS20.cpp
     src/chips/SN74LS30.cpp
+    src/chips/SN74HC42.cpp
     src/chips/SN74LS161A.cpp
     src/chips/SN74HC163N.cpp
+    src/chips/SN74HC245.cpp
     src/chips/SN74HC373.cpp
     src/chips/IDT71256SA.cpp
 )

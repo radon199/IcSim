@@ -38,7 +38,19 @@ IDT71256SA::IDT71256SA(std::string name) : ChipBase(name)
     };
     set_pins(pins_);
 
-    memory_.resize(32000);
+    memory_.resize(32768);
+
+    set_data("WE", 1);
+}
+
+void
+IDT71256SA::write_data(unsigned int address, unsigned int data)
+{
+    if (address < 0 || address >= 32768) {
+        throw std::logic_error("Input address outside memory range.");
+    }
+    std::bitset<8> bit_data(data);
+    memory_[address] = bit_data;
 }
 
 void
